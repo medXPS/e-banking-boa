@@ -1,0 +1,10 @@
+server:
+  port: 8761
+  #address: 192.168.100.152
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false

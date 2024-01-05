@@ -1,0 +1,42 @@
+server:
+  port: 9090
+  #address: 192.168.100.152
+
+spring:
+  application:
+    name: API-GATEWAY
+  config:
+    import: configserver:${config_server_url:http://localhost:9296}
+  cloud:
+    gateway:
+      routes:
+        - id : TRANSFER-SERVICE
+          uri: lb://TRANSFER-SERVICE
+          predicates:
+            - Path=/api/transfers/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: TRANSFER-SERVICE
+                fallbackuri: forward:/transferServiceFallBack
+
+        - id: CLIENT-SERVICE
+          uri: lb://CLIENT-SERVICE
+          predicates:
+            - Path=/api/client/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: CLIENT-SERVICE
+                fallbackuri: forward:/clientServiceFallBack
+
+        - id: NOTIFICATION-SERVICE
+          uri: lb://NOTIFICATION-SERVICE
+          predicates:
+            - Path=/api/notifications/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: NOTIFICATION-SERVICE
+                fallbackuri: forward:/notificationServiceFallBack
+
