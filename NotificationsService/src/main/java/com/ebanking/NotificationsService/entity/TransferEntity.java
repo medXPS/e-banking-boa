@@ -54,5 +54,7 @@ public class TransferEntity {
     private Wallet wallet;
     @OneToMany(mappedBy = "transferEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Beneficiary> beneficiaries;
+    private Long customerWalletId ;
+    private Long beneficiaryWalletId;
 
 }

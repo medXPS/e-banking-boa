@@ -17,4 +17,6 @@ public interface BeneficiaryRepository extends JpaRepository<Beneficiary,Long> {
 
 
     Optional<Beneficiary> findByCinAndTransferID(String cin, Long transferID);
+
+    Optional<Beneficiary> findByTransferID(Long beneficiaryId);
 }

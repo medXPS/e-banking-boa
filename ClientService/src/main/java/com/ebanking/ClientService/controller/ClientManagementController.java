@@ -154,7 +154,7 @@ public class ClientManagementController {
     }
     @GetMapping("/")
     public String test() {
-        return "fuck you";
+        return "hello it works ";
     }
 
 
@@ -178,4 +178,26 @@ public class ClientManagementController {
     public List<KYC> getAllKYC() {
         return clientManagementService.getAllKYC();
     }
+    @GetMapping("/getKycByID/{id}")
+    public KYC getKYCById(@PathVariable Long id) {
+        Optional<KYC> kyc = clientManagementService.getKYCById(id);
+        return kyc.orElse(null);
+    }
+    @GetMapping("/getWalletByWalletID/{id}")
+    public Wallet getWalletByWalletID(@PathVariable Long id) {
+   return  clientManagementService.getWalletByWalletID(id);
+
+    }
+    @GetMapping("findBeneficiaryByTransferID/{customerID}")
+    public Beneficiary getBeneficiaryByTransferId(@PathVariable Long customerID) {
+        return clientManagementService.getBeneficiaryByTransferId(customerID)
+                .orElseThrow(() -> new RuntimeException("Beneficiary not found with ID: " + customerID));
+    }
+    @GetMapping("findCustomerByIdNumber/{idNumber}")
+    public Customer getCustomerByIdNumber(@PathVariable String idNumber) {
+        return clientManagementService.getCustomerByIdNumber(idNumber)
+                ;
+    }
+
+
 }

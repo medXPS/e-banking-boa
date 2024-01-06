@@ -310,7 +310,7 @@ if(kyc.isEmpty()) {
     public Optional<Customer> getCustomerById(Long customerId) {
         return customerRepository.findById(customerId);
     }
-
+    @Override
     public Optional<Wallet> getWalletById(Long customerID) {
         return walletRepository.findByCustomerId(customerID);
     }
@@ -340,6 +340,10 @@ if(kyc.isEmpty()) {
     @Override
     public Optional<Beneficiary> getBeneficiaryById(Long beneficiaryId) {
         return beneficiaryRepository.findById(beneficiaryId);
+    }
+    @Override
+    public Optional<Beneficiary> getBeneficiaryByTransferId(Long beneficiaryId) {
+        return beneficiaryRepository.findByTransferID(beneficiaryId);
     }
     @Override
     public void updateTransferID(Long transferID, Long beneficiaryID) {
@@ -381,7 +385,7 @@ if(kyc.isEmpty()) {
                 // Customer is not in SIRONE blacklist
                 return FindCustomerByPhoneResponse.builder()
                         .customer(customerOptional.get())
-                        .message("Customer exists and is not in SIRONE blacklist.")
+                        .message("Customer exists and is not in blacklist.")
                         .isBlockedOrExist(true)
                         .build();
             }
@@ -395,7 +399,7 @@ if(kyc.isEmpty()) {
             } else {
                 // Customer is not in SIRONE blacklist
                 return FindCustomerByPhoneResponse.builder()
-                        .message("Customer does not exist and is not in SIRONE blacklist.")
+                        .message("Customer does not exist .")
                         .isBlockedOrExist(false)
                         .build();
             }
@@ -492,4 +496,22 @@ if(kyc.isEmpty()) {
     public List<KYC> getAllKYC() {
         return kycRepository.findAll();
     }
+    // getting the KYC by ID
+    @Override
+    public Optional<KYC> getKYCById(Long id) {
+        return kycRepository.findById(id);
+    }
+
+  @Override
+    public Wallet getWalletByWalletID(Long id){
+
+        Optional<Wallet> wallet = walletRepository.findById(id);
+      return wallet.orElse(null);
+
+  }
+  @Override
+  public  Customer getCustomerByIdNumber(String cin){
+        Optional<Customer> customer =customerRepository.findByCin(cin);
+      return customer.orElse(null);
+  }
 }

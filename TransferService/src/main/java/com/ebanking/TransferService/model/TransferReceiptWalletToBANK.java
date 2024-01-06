@@ -1,5 +1,4 @@
 package com.ebanking.TransferService.model;
-
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfGState;
@@ -9,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
